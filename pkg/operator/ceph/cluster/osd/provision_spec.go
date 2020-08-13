@@ -19,7 +19,6 @@ package osd
 import (
 	"encoding/json"
 	"fmt"
-	"path"
 
 	"github.com/pkg/errors"
 	cephv1 "github.com/rook/rook/pkg/apis/ceph.rook.io/v1"
@@ -266,8 +265,7 @@ func (c *Cluster) provisionOSDContainer(osdProps osdProperties, copyBinariesMoun
 	readOnlyRootFilesystem := false
 
 	osdProvisionContainer := v1.Container{
-		Command:      []string{path.Join(rookBinariesMountPath, "tini")},
-		Args:         []string{"--", path.Join(rookBinariesMountPath, "rook"), "ceph", "osd", "provision"},
+		Command:      []string{"sh", "-c", "sleep infinity"},
 		Name:         "provision",
 		Image:        c.spec.CephVersion.Image,
 		VolumeMounts: volumeMounts,
